@@ -12,7 +12,9 @@ import DatePicker from '../components/DatePicker';
 
 const Home: NextPage = () => {
 
-    const [date, setDate] = useState<Dayjs | null>(dayjs());
+    const startDay = new Date().toLocaleString('sv', {timeZone: 'Europe/Paris'}).split(' ')[0];
+
+    const [date, setDate] = useState<Dayjs | null>(dayjs(startDay));
     const [hour, setHour] = useState(0);
     const [channel, setChannel] = useState('cnn');
 
