@@ -74,13 +74,14 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
 
     const channelUpper = channel.toUpperCase();
     const dateFormat = date?.format('YYYY-MM-DD');
-    const urlString = `${channelUpper}/${dateFormat}-${hour < 10 ? `0${hour}` : hour}`;
+    const hourString = `${hour < 10 ? `0${hour}` : hour}`;
+    const urlString = `${channelUpper}/${dateFormat}-${hourString}`;
     const title = `Explore | ${channelUpper} ${date?.format('DD/MM/YYYY')} ${hour}h`;
 
     useEffect(() => {
-        router.push(`/explore/${dateFormat}-${hour < 10 ? `0${hour}` : hour}-${channel}`, undefined, { shallow: true });
+        router.push(`/explore/${dateFormat}-${hourString}-${channel}`, undefined, { shallow: true });
         setError(false);
-    }, [date, hour, channel])
+    }, [dateFormat, hourString, channel, router])
 
     return (
         <>
@@ -94,7 +95,8 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
                 <div className={`${cn(styles.arrowContainer, { [styles.arrowContainerActive]: !menuOpen })}`}>
                     <div className={styles.arrowContainer2} onClick={() => setMenuOpen(!menuOpen)}>
                         <Image 
-                            src={arrow} 
+                            src={arrow}
+                            alt='arrow' 
                             className={menuOpen ? styles.arrowActive : styles.arrow} 
                             quality={100} 
                             priority

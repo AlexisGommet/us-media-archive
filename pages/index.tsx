@@ -36,7 +36,7 @@ const Home: NextPage = () => {
                     </div>
                     <DatePicker {...DatePickerProps}/>
                     <button>
-                        <Link href={`/explore/${date?.format('YYYY-MM-DD')}-${hour < 10 ? `0${hour}` : hour}-${channel}`}>Let's compare</Link>
+                        <Link href={`/explore/${date?.format('YYYY-MM-DD')}-${hour < 10 ? `0${hour}` : hour}-${channel}`}>Let&apos;s compare</Link>
                     </button>
                 </main>
             </div>
