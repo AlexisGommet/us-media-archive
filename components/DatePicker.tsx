@@ -36,8 +36,8 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
                     displayStaticWrapperAs="desktop"
                     openTo='day'
                     minDate={dayjs('2022-08-29')}
+                    maxDate={dayjs(currentDay)}
                     inputFormat='YYYY-MM-DD'
-                    disableFuture={true}
                     value={date}
                     onChange={(newValue) => setDate(newValue)}
                     renderInput={(params) => <>{params}</>}
