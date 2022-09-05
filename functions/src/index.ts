@@ -8,10 +8,10 @@ import type { Browser, Page } from 'puppeteer';
 
 admin.initializeApp();
 
-const TIMEOUT = 60 * 1000;
+const TIMEOUT = 120 * 1000;
 const TMPDIR = os.tmpdir();
 
-exports.puppeteerCronjob = functions.runWith({ timeoutSeconds: 150, memory: '2GB' }).pubsub.schedule('0 */6 * * *').timeZone('Europe/Paris').onRun(async () => {
+exports.puppeteerCronjob = functions.runWith({ timeoutSeconds: 300, memory: '2GB' }).pubsub.schedule('0 */6 * * *').timeZone('Europe/Paris').onRun(async () => {
     const date = getDate();    
     await getScreenshots();
     await uploadScreenshots(date);

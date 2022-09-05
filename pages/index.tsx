@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 import CNN_Logo from '/assets/CNN-logo.png';
-import FOX_Logo from '/assets/Fox-logo.png';
+import FOX_Logo from '/assets/FOX-logo.png';
 import { useState } from 'react';
 import DatePicker from '../components/DatePicker';
 
@@ -16,14 +16,7 @@ const Home: NextPage = () => {
     const [hour, setHour] = useState(0);
     const [channel, setChannel] = useState('cnn');
 
-    const DatePickerProps = {
-        date,
-        setDate,
-        hour,
-        setHour,
-        channel,
-        setChannel
-    }
+    const DatePickerProps =  { date, setDate, hour, setHour, channel, setChannel };
 
     return (
         <>
@@ -43,7 +36,7 @@ const Home: NextPage = () => {
                     </div>
                     <DatePicker {...DatePickerProps}/>
                     <button>
-                        <Link href={`/${date?.format('YYYY-MM-DD')}-${hour < 10 ? `0${hour}` : hour}-${channel}`}>Let's compare</Link>
+                        <Link href={`/explore/${date?.format('YYYY-MM-DD')}-${hour < 10 ? `0${hour}` : hour}-${channel}`}>Let's compare</Link>
                     </button>
                 </main>
             </div>

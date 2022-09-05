@@ -4,6 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
 import styles from '../styles/DatePicker.module.css';
+import cn from 'classnames';
 
 interface Props {
     date: Dayjs | null,
@@ -47,7 +48,7 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
                     {channelButtons.map((item, index) => {
                         return <button 
                             key={index} 
-                            className={channel === item ? styles.active : ''} 
+                            className={`${cn({ [styles.active]: channel === item })}`} 
                             onClick={() => setChannel(item)}
                         >
                             {item.toUpperCase()}
@@ -61,7 +62,7 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
                     {hourButtons.map((item, index) => {
                         return <button 
                             key={index} 
-                            className={hour === item.hour ? styles.active : ''} 
+                            className={`${cn({ [styles.active]: hour === item.hour })}`} 
                             onClick={() => setHour(item.hour)}
                             disabled={currentHour < item.hour && date?.format('YYYY-MM-DD') === currentDay}
                         >
