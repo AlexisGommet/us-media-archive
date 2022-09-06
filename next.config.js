@@ -4,7 +4,7 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     images: {
-        unoptimized: true,
+        formats: ['image/jpeg'],
         domains: ['storage.googleapis.com'],
     },
 };
