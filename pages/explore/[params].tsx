@@ -1,16 +1,18 @@
-import type { NextPage, GetServerSideProps  } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
+import Link from 'next/link';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../../styles/Explore.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DatePicker from '../../components/DatePicker';
 import { useRouter } from 'next/router';
 import arrow from '/assets/right-arrow.svg';
 import cn from 'classnames';
 import FOX_64 from 'assets/FOX-64.js';
 import CNN_64 from 'assets/CNN-64.js';
+import Spinner from '../../components/Spinner';
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
@@ -69,6 +71,9 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
     const [channel, setChannel] = useState(paramChannel);
     const [menuOpen, setMenuOpen] = useState(false);
     const [error, setError] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(false);
+
+    const firstRender = useRef(true);
 
     const DatePickerProps =  { date, setDate, hour, setHour, channel, setChannel };
 
@@ -79,7 +84,11 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
     const title = `Explore | ${channelUpper} ${date?.format('DD/MM/YYYY')} ${hour}h`;
 
     useEffect(() => {
-        router.push(`/explore/${dateFormat}-${hourString}-${channel}`, undefined, { shallow: true });
+        if (firstRender.current) {
+            firstRender.current = false;
+            return;
+        }
+        if (!buttonClicked) router.push(`/explore/${dateFormat}-${hourString}-${channel}`, undefined, { shallow: true });
         setError(false);
     }, [dateFormat, hourString, channel, router])
 
@@ -90,6 +99,13 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
                 <meta name="description" content="US Media Archive/Comparator" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            {!buttonClicked ?
+                <button className={styles.homeButton} onClick={() => setButtonClicked(true)}>
+                    <Link href='/'>HOME</Link>
+                </button>
+            :
+                <Spinner />
+            }
             <nav className={`${cn(styles.nav, { [styles.menuActive]: !menuOpen })}`}>
                 <DatePicker {...DatePickerProps}/>
                 <div className={`${cn(styles.arrowContainer, { [styles.arrowContainerActive]: !menuOpen })}`}>

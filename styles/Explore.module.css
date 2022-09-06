@@ -67,3 +67,17 @@
     width: fit-content;
     height: fit-content;
 }
+
+.homeButton{
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-size: large;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background: white;
+    border-radius: 35px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}

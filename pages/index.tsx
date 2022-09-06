@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import type { Dayjs } from 'dayjs';
+import Spinner from '../components/Spinner';
 import dayjs from 'dayjs';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
     const [date, setDate] = useState<Dayjs | null>(dayjs(startDay));
     const [hour, setHour] = useState(0);
     const [channel, setChannel] = useState('cnn');
+    const [buttonClicked, setButtonClicked] = useState(false);
 
     const DatePickerProps =  { date, setDate, hour, setHour, channel, setChannel };
 
@@ -37,9 +39,15 @@ const Home: NextPage = () => {
                         <Image src={FOX_Logo} alt="FOX Logo" placeholder="blur" priority/>
                     </div>
                     <DatePicker {...DatePickerProps}/>
-                    <button>
-                        <Link href={`/explore/${date?.format('YYYY-MM-DD')}-${hour < 10 ? `0${hour}` : hour}-${channel}`}>Let&apos;s compare</Link>
-                    </button>
+                    {!buttonClicked ? 
+                        <button onClick={() => setButtonClicked(true)}>
+                            <Link href={`/explore/${date?.format('YYYY-MM-DD')}-${hour < 10 ? `0${hour}` : hour}-${channel}`}>
+                                Let&apos;s compare
+                            </Link>
+                        </button>
+                    :
+                        <Spinner />
+                    }
                 </main>
             </div>
         </>
