@@ -90,7 +90,7 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
         }
         if (!buttonClicked) router.push(`/explore/${dateFormat}-${hourString}-${channel}`, undefined, { shallow: true });
         setError(false);
-    }, [dateFormat, hourString, channel, router])
+    }, [dateFormat, hourString, channel, router, buttonClicked])
 
     return (
         <>
