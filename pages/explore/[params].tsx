@@ -134,6 +134,7 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
                     width={1200}
                     height={channel === 'cnn' ? 6465 : 18958}
                     onError={() => setError(true)}
+                    unoptimized
                     priority
                 />}
             </main>
