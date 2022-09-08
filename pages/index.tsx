@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetStaticProps } from 'next';
 import type { Dayjs } from 'dayjs';
 import Spinner from '../components/Spinner';
 import dayjs from 'dayjs';
@@ -11,9 +11,23 @@ import FOX_Logo from '/assets/FOX-logo.png';
 import { useState } from 'react';
 import DatePicker from '../components/DatePicker';
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
 
     const startDay = new Date().toLocaleString('sv', {timeZone: 'Europe/Paris'}).split(' ')[0];
+  
+    return {
+        props: {
+            startDay
+        },
+        revalidate: 60
+    }
+}
+
+interface Props {
+    startDay: string
+}
+
+const Home: NextPage<Props> = ({ startDay }) => {
 
     const [date, setDate] = useState<Dayjs | null>(dayjs(startDay));
     const [hour, setHour] = useState(0);
