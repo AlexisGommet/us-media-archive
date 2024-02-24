@@ -19,9 +19,9 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
 
     const channelButtons = ['cnn', 'fox'];
     const hourButtons = [
-        {hour: 0, hourString: '12AM'}, 
-        {hour: 6, hourString: '6AM'}, 
-        {hour: 12, hourString: '12PM'}, 
+        {hour: 0, hourString: '12AM'},
+        {hour: 6, hourString: '6AM'},
+        {hour: 12, hourString: '12PM'},
         {hour: 18, hourString: '6PM'}
     ];
 
@@ -37,7 +37,7 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
                     openTo='day'
                     disableHighlightToday={true}
                     minDate={dayjs('2022-08-29')}
-                    maxDate={dayjs(currentDay)}
+                    maxDate={dayjs('2023-08-03')}
                     inputFormat='YYYY-MM-DD'
                     value={date}
                     onChange={(newValue) => setDate(newValue)}
@@ -47,9 +47,9 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
             <div className={styles.channelPicker}>
                 <div className={styles.channelPickerFlex}>
                     {channelButtons.map((item, index) => {
-                        return <button 
-                            key={index} 
-                            className={`${cn({ [styles.active]: channel === item })}`} 
+                        return <button
+                            key={index}
+                            className={`${cn({ [styles.active]: channel === item })}`}
                             onClick={() => setChannel(item)}
                         >
                             {item.toUpperCase()}
@@ -61,9 +61,9 @@ const DatePicker: FC<Props> = ({ date, setDate, hour, setHour, channel, setChann
             <div className={styles.hourPicker}>
                 <div className={styles.hourPickerFlex}>
                     {hourButtons.map((item, index) => {
-                        return <button 
-                            key={index} 
-                            className={`${cn({ [styles.active]: hour === item.hour })}`} 
+                        return <button
+                            key={index}
+                            className={`${cn({ [styles.active]: hour === item.hour })}`}
                             onClick={() => setHour(item.hour)}
                             disabled={currentHour < item.hour && date?.format('YYYY-MM-DD') === currentDay}
                         >

@@ -33,23 +33,24 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const currentDate = new Date().toLocaleString('sv', {timeZone: 'Europe/Paris'});
     const currentHour = parseInt(currentDate.split(' ')[1].split(':')[0]);
     const currentDay = currentDate.split(' ')[0];
-    
 
-    if(!([0, 6, 12, 18].includes(paramHour)) || 
-        paramDate > currentDay || 
-        (currentHour < paramHour && paramDate === currentDay) ||  
-        paramDate < '2022-08-29' || 
-        split.length !== 5 || 
+
+    if(!([0, 6, 12, 18].includes(paramHour)) ||
+        paramDate > currentDay ||
+        (currentHour < paramHour && paramDate === currentDay) ||
+        paramDate < '2022-08-29' ||
+        paramDate > '2023-08-03' ||
+        split.length !== 5 ||
         !(['fox', 'cnn'].includes(paramChannel)))
     {
         return {
             notFound: true
         }
     }
-    
+
     return {
         props: {
-            paramDate, 
+            paramDate,
             paramHour,
             paramChannel
         },
@@ -57,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 }
 
 interface Props {
-    paramDate: string, 
+    paramDate: string,
     paramHour: number,
     paramChannel: string
 }
@@ -65,7 +66,7 @@ interface Props {
 const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
 
     const router = useRouter();
-    
+
     const [date, setDate] = useState<Dayjs | null>(dayjs(paramDate));
     const [hour, setHour] = useState(paramHour);
     const [channel, setChannel] = useState(paramChannel);
@@ -110,11 +111,11 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
                 <DatePicker {...DatePickerProps}/>
                 <div className={`${cn(styles.arrowContainer, { [styles.arrowContainerActive]: !menuOpen })}`}>
                     <div className={styles.arrowContainer2} onClick={() => setMenuOpen(!menuOpen)}>
-                        <Image 
+                        <Image
                             src={arrow}
-                            alt='arrow' 
-                            className={menuOpen ? styles.arrowActive : styles.arrow} 
-                            quality={100} 
+                            alt='arrow'
+                            className={menuOpen ? styles.arrowActive : styles.arrow}
+                            quality={100}
                             priority
                             width={20}
                             height={20}
@@ -123,12 +124,12 @@ const Explore: NextPage<Props> = ({ paramDate, paramHour, paramChannel }) => {
                 </div>
             </nav>
             <main className={styles.imageWrapper}>
-                {error ? <p className={styles.error}>An error occurred while fetching the image</p> : 
-                <Image 
+                {error ? <p className={styles.error}>An error occurred while fetching the image</p> :
+                <Image
                     key={urlString}
-                    src={`https://storage.googleapis.com/us-media-archive.appspot.com/images/${urlString}.jpg`} 
-                    alt={urlString} 
-                    blurDataURL={channel === 'cnn' ? CNN_64 : FOX_64} 
+                    src={`https://storage.googleapis.com/us-media-archive.appspot.com/images/${urlString}.jpg`}
+                    alt={urlString}
+                    blurDataURL={channel === 'cnn' ? CNN_64 : FOX_64}
                     placeholder='blur'
                     quality={100}
                     width={1200}
